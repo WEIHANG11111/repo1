@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments::head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类新增</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
+</head>
+<body>
+<!-- 导航 -->
+<nav class = "ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">管理后台</h2>
+            <a th:href="@{/admin/blogs}" class="m-item item m-mobile-hidden"><i class="home icon"></i>博客</a>
+            <a href="#" class="active m-item item m-mobile-hidden"><i class="idea icon"></i>分类</a>
+            <a th:href="@{/admin/tags}" class="m-item item m-mobile-hidden"><i class="tags icon"></i>标签</a>
+            <div class="right menu">
+                <div class="ui dropdown item m-item m-mobile-hidden">
+                    <div class="text">
+                        <img src="https://picsum.photos/100" alt="" class="ui avatar image">
+                        魏依航
+                    </div>
+                    <i class="ui dropdown icon"></i>
+                    <div class="ui menu">
+                        <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<div class="ui menu attached pointing">
+    <div class="ui container">
+        <div class="ui right menu">
+            <a href="#" th:href="@{/admin/types/input}" class="active ui item">新增</a>
+            <a href="" th:href="@{/admin/types}" class="teal ui item">列表</a>
+        </div>
+
+    </div>
+
+</div>
+<!-- 中间内容 -->
+<div class="m-padded-tb-large m-container-mini">
+    <div class="ui container">
+        <form action="#" method="post"th:object="${type}" th:action="*{id} == null ? @{/admin/types}:@{/admin/types/{id}(id=*{id})}"  class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+            <div class="required field">
+                <div class="ui left labeled input">
+                    <label for="" class="ui teal basic label">名称</label>
+                    <input type="text" name="name" id="t_name" placeholder="分类名称" th:value="*{name}">
+                </div>
+            </div>
+            <div class="ui error message"></div>
+
+               <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+                 <i class="close icon"></i>
+                 <div class="header">验证失败</div>
+                 <p th:errors="*{name}">提交信息不符合规则</p>
+               </div>
+
+                <div class="ui right aligned container">
+                    <button class="ui button" onclick="window.history.go(-1)">返回</button>
+                    <button class="ui teal submit button">提交</button>
+                </div>
+        </form>
+    </div>
+</div>
+<!-- 底部 -->
+<footer>
+    <div class="ui inverted vertical segment m-padded-tb-massive">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <img th:src="@{/images/wechat.jpg}" class="ui rounded image" alt="" style="width: 110px;">
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="" class="item">用户故事</a>
+                        <a href="" class="item">用户故事</a>
+                        <a href="" class="item">用户故事</a>
+                        <a href="" class="item">用户故事</a>
+                    </div>
+                </div>
+                <div class="three wide column">
+                    <h4 class="ui inverted header">最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="" class="item">用户故事</a>
+                        <a href="" class="item">用户故事</a>
+                        <a href="" class="item">用户故事</a>
+                        <a href="" class="item">用户故事</a>
+                    </div>
+                </div>
+                <div class="seven wide column">
+                    <h4 class="ui inverted header">WEIYIHANG</h4>
+                    <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的博客，会分享编程，写作以及个人生活心得体会。。。</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-mini">CopyRight@WEIYIHANG@2020</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $(".menu.toggle").click(function(){
+        $(".m-item").toggleClass('m-mobile-hidden');
+    })
+    // 初始化dropdown控件
+    $('.ui.dropdown').dropdown({
+        on:'hover'
+    });
+    $('.ui.form').form({
+        fields:{
+            title:{
+                identifier:'name',
+                rules:[{
+                    type:'empty',
+                    prompt:'请输入分类名称'
+                }]
+            }
+        }
+    })
+</script>
+</body>
+</html>
